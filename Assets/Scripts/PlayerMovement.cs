@@ -33,7 +33,14 @@ public class PlayerMovement : MonoBehaviour
 
             if (Physics.Raycast(clickRay, out RaycastHit hit, 1000, playerAgent.areaMask))
             {
-                playerAgent.SetDestination(hit.point);
+                if (hit.transform.gameObject.CompareTag("Mouse"))
+                {
+                    hit.transform.gameObject.GetComponent<MouseMovement>().isSearching = false;
+                }else
+                {
+
+                    playerAgent.SetDestination(hit.point);
+                }
 
             }
         }
