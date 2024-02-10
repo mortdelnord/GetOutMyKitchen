@@ -5,14 +5,17 @@ using UnityEngine.AI;
 
 public class MouseMovement : MonoBehaviour
 {
-    private NavMeshAgent mouseAgent;
+    public GameManager gameManager;
+    public NavMeshAgent mouseAgent;
     public float range = 10.0f;
     public float timerMax = 5.0f;
     private float timer = 0f;
     public bool canMove = true;
+    public bool isCarrying = false;
 
     public bool isSearching = true;
     public Transform target;
+    
     public Transform home;
 
 
@@ -20,6 +23,9 @@ public class MouseMovement : MonoBehaviour
     {
         mouseAgent = gameObject.GetComponent<NavMeshAgent>();
         timer = timerMax;
+        target = gameManager.RandomCheese().transform;
+        home = gameManager.RandomMouseHole();
+        
     }
 
 
@@ -50,6 +56,9 @@ public class MouseMovement : MonoBehaviour
                 if(Vector3.Distance(transform.position, target.position) <= 1f)
                 {
                     isSearching = false;
+                    canMove = false;
+                    PickUpCheese(target.gameObject);
+
                 }
             }else
             {
@@ -57,21 +66,33 @@ public class MouseMovement : MonoBehaviour
                 
                     if (Vector3.Distance(transform.position, home.position) <= 1f)
                     {
+
                         isSearching = true;
+                        canMove = true;
+                        //PickUpCheese(target.gameObject);
                     }
                 
             }
-            // timer += Time.deltaTime;
-            // if (timer >= timerMax)
-            // {
-            //     Vector3 point;
-            //     if (RandomPoint(transform.position, range, out point))
-            //     {
-            //         mouseAgent.SetDestination(point);
-            //     }
-            //     timer = 0f;
-            // }
+            
+        }else
+        {
+            mouseAgent.enabled = false;
+        }
+    }
 
+    private void PickUpCheese(GameObject cheese)
+    {
+        BaseCheese cheeseScript = cheese.GetComponent<BaseCheese>();
+        if (cheeseScript.AddMouse(gameObject))
+        {
+            mouseAgent.enabled = false;
+            cheeseScript.AttachMouse(transform);
+        }else
+        {
+            mouseAgent.enabled = true;
+            target = gameManager.RandomCheese().transform;
+            isSearching = true;
+            canMove = true;
 
         }
     }
