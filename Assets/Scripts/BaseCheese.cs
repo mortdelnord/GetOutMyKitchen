@@ -14,6 +14,12 @@ public class BaseCheese : MonoBehaviour
     private GameObject newestMouse;
 
     private Transform home;
+    public bool isFull = false;
+
+    private void Awake()
+    {
+        gameManager.cheeseList.Add(gameObject);
+    }
 
     public bool AddMouse(GameObject mouse)
     {
@@ -22,6 +28,7 @@ public class BaseCheese : MonoBehaviour
 
             mice.Add(mouse);
             newestMouse = mouse;
+            
             return true;
         }else
         {
@@ -57,7 +64,14 @@ public class BaseCheese : MonoBehaviour
         mouseBody.localPosition = Vector3.zero;
         if (mice.Count == miceCountMax)
         {
+            gameManager.cheeseList.Remove(gameObject);
+            isFull = true;
             MoveCheese(mouseBody.gameObject.GetComponent<NavMeshAgent>());
+        }else 
+        {
+            Transform newPoint = gameManager.RandomMouseHole();
+            GameObject neededMouse = Instantiate(gameManager.mousePrefab, newPoint.position, mousePoint.rotation);
+            neededMouse.GetComponent<MouseMovement>().target = gameObject.transform;
         }
     }
     public void DetachMouse()
@@ -71,7 +85,7 @@ public class BaseCheese : MonoBehaviour
                 MouseMovement mouseScript = mouseTransform.gameObject.GetComponent<MouseMovement>();
                 mouseScript.mouseAgent.enabled = true;
                 mouseScript.canMove = true;
-
+                isFull = false;
             }
         }
     }

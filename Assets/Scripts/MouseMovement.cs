@@ -14,18 +14,26 @@ public class MouseMovement : MonoBehaviour
     public bool isCarrying = false;
 
     public bool isSearching = true;
-    public Transform target;
+    public Transform target = null;
     
     public Transform home;
 
 
     private void Start()
     {
-        mouseAgent = gameObject.GetComponent<NavMeshAgent>();
-        timer = timerMax;
-        target = gameManager.RandomCheese().transform;
-        home = gameManager.RandomMouseHole();
+        Debug.Log(target);
         
+    }
+    private void Awake()
+    {
+        mouseAgent = gameObject.GetComponent<NavMeshAgent>();
+        gameManager = GameObject.Find("GameManager").gameObject.GetComponent<GameManager>();
+        target = gameManager.RandomCheese().transform;
+        timer = timerMax;
+        Debug.Log(target);
+        home = gameManager.RandomMouseHole();
+        Debug.Log(home);
+
     }
 
 
@@ -53,6 +61,11 @@ public class MouseMovement : MonoBehaviour
             if (isSearching)
             {
                 mouseAgent.SetDestination(target.position);
+                if (target.gameObject.GetComponent<BaseCheese>().isFull && target != null)
+                {
+                    //isSearching = false;
+                    target = gameManager.RandomCheese().transform;
+                }
                 if(Vector3.Distance(transform.position, target.position) <= 1f)
                 {
                     isSearching = false;
