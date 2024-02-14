@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Animations;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -14,15 +15,44 @@ public class BaseCheese : MonoBehaviour
     private GameObject newestMouse;
 
     private Transform home;
+    public Rigidbody cheeseRb;
     public bool isFull = false;
+    private bool isGoingHome = false;
 
+    private void Start()
+    {
+        //cheeseRb = gameObject.GetComponent<Rigidbody>();
+    }
     private void Awake()
     {
+        gameManager = GameObject.Find("GameManager").gameObject.GetComponent<GameManager>();
         gameManager.cheeseList.Add(gameObject);
+        //cheeseRb = gameObject.GetComponent<Rigidbody>();
     }
 
+
+    private void Update()
+    {
+        if(isGoingHome)
+        {
+            if (Vector3.Distance(transform.position, home.position) <= 1f)
+            {
+                Debug.Log("Is Destroying");
+                Destroy(gameObject);
+                //PickUpCheese(target.gameObject);
+            }
+           
+        }
+    }
     public bool AddMouse(GameObject mouse)
     {
+        cheeseRb.isKinematic = true;
+        transform.tag = "CheeseMouse";
+        if (gameObject.GetComponent<BoxCollider>() == null)
+        {
+            BoxCollider cheeseTrigger = gameObject.AddComponent<BoxCollider>();
+            cheeseTrigger.isTrigger = true;
+        }
         if (mice.Count < miceCountMax)
         {
 
@@ -40,20 +70,19 @@ public class BaseCheese : MonoBehaviour
     public void MoveCheese(NavMeshAgent mouseAgent)
     {
         NavMeshAgent cheeseAgent = gameObject.AddComponent<NavMeshAgent>();
+        cheeseAgent.baseOffset = 0.5f;
         
         //cheeseAgent = mouseAgent;
-        cheeseAgent.SetDestination(gameManager.RandomMouseHole().position);
-
+        home = gameManager.RandomMouseHole();
+        cheeseAgent.SetDestination(home.position);
+        isGoingHome = true;
     }
 
     public void ClearMice()
     {
-        foreach(GameObject mouse in mice)
-        {
-            mice.Remove(mouse);
-            mouse.GetComponent<MouseMovement>().canMove = true;
-            mouse.GetComponent<MouseMovement>().isSearching = false;
-        }
+        mice.Clear();
+        DetachMouse();
+
     }
 
     public void AttachMouse(Transform mouseBody)
@@ -85,9 +114,21 @@ public class BaseCheese : MonoBehaviour
                 MouseMovement mouseScript = mouseTransform.gameObject.GetComponent<MouseMovement>();
                 mouseScript.mouseAgent.enabled = true;
                 mouseScript.canMove = true;
+                mouseScript.isSearching = false;
                 isFull = false;
             }
         }
+        if (!gameManager.cheeseList.Contains(gameObject))
+        {
+            gameManager.cheeseList.Add(gameObject);
+        }
+        if (gameObject.GetComponent<NavMeshAgent>() != null)
+        {
+
+            Destroy(gameObject.GetComponent<NavMeshAgent>());
+        }
+        transform.tag = "Cheese";
+        cheeseRb.isKinematic = false;
     }
 
 

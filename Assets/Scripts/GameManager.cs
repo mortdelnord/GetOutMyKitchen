@@ -9,24 +9,36 @@ public class GameManager : MonoBehaviour
     public List<Transform> mouseHoles;
     public GameObject mousePrefab;
 
+    private bool canSpawn = true;
+
     public int score = 0;
+    private float spawnTimer = 0f;
+    public float spawnTimerMax;
+
 
     public Transform RandomMouseHole()
     {
-        int randInt = Random.Range(0, mouseHoles.Count);
+        int randInt = Random.Range(0, mouseHoles.Count - 1);
         Transform point = mouseHoles[randInt].transform;
         return point;
     }
     public GameObject RandomCheese()
     {
-        int randInt = Random.Range(0, cheeseList.Count);
-        GameObject cheese = cheeseList[randInt];
-        if (cheese == null)
+        if (cheeseList.Count > 0)
         {
-            randInt = Random.Range(0, cheeseList.Count);
-            cheese = cheeseList[randInt];
+            int randInt = Random.Range(0, cheeseList.Count - 1);
+            GameObject cheese = cheeseList[randInt];
+            if (cheese == null)
+            {
+                randInt = Random.Range(0, cheeseList.Count);
+                cheese = cheeseList[randInt];
+            }
+            return cheese;
+
+        }else
+        {
+            return null;
         }
-        return cheese;
     }
 
 
@@ -40,5 +52,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Update()
+        {
+            spawnTimer += Time.deltaTime;
+            if (canSpawn && spawnTimer >= spawnTimerMax)
+            {
+                if (cheeseList.Count > 0)
+                {
 
+                    spawnTimer = 0f;
+                    Transform spawnPoint = RandomMouseHole();
+                    Instantiate(mousePrefab, spawnPoint.position, spawnPoint.rotation);
+                }
+            }
+        }
+    
 }

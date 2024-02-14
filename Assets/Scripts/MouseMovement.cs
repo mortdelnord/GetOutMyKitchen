@@ -21,7 +21,7 @@ public class MouseMovement : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(target);
+        //Debug.Log(target);
         
     }
     private void Awake()
@@ -30,9 +30,9 @@ public class MouseMovement : MonoBehaviour
         gameManager = GameObject.Find("GameManager").gameObject.GetComponent<GameManager>();
         target = gameManager.RandomCheese().transform;
         timer = timerMax;
-        Debug.Log(target);
+        //Debug.Log(target);
         home = gameManager.RandomMouseHole();
-        Debug.Log(home);
+        //Debug.Log(home);
 
     }
 
@@ -64,9 +64,16 @@ public class MouseMovement : MonoBehaviour
                 if (target.gameObject.GetComponent<BaseCheese>().isFull && target != null)
                 {
                     //isSearching = false;
-                    target = gameManager.RandomCheese().transform;
+                    if(gameManager.cheeseList.Count > 0)
+                    {
+
+                        target = gameManager.RandomCheese().transform;
+                    }else
+                    {
+                        isSearching = false;
+                    }
                 }
-                if(Vector3.Distance(transform.position, target.position) <= 1f)
+                if(Vector3.Distance(transform.position, target.position) <= 1f && target != null)
                 {
                     isSearching = false;
                     canMove = false;
@@ -80,8 +87,7 @@ public class MouseMovement : MonoBehaviour
                     if (Vector3.Distance(transform.position, home.position) <= 1f)
                     {
 
-                        isSearching = true;
-                        canMove = true;
+                        Destroy(gameObject);
                         //PickUpCheese(target.gameObject);
                     }
                 

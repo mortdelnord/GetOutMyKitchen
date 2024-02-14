@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Mouse
   - Cheese
+  - CheeseMouse
   layers:
   - Default
   - TransparentFX

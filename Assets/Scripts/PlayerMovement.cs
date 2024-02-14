@@ -33,9 +33,18 @@ public class PlayerMovement : MonoBehaviour
 
             if (Physics.Raycast(clickRay, out RaycastHit hit, 1000, playerAgent.areaMask))
             {
-                if (hit.transform.gameObject.CompareTag("Mouse"))
+                if (hit.transform.gameObject.CompareTag("Mouse") || hit.transform.gameObject.CompareTag("CheeseMouse"))
                 {
-                    hit.transform.gameObject.GetComponent<MouseMovement>().isSearching = false;
+                    if (hit.transform.gameObject.CompareTag("Mouse"))
+                    {
+                        hit.transform.gameObject.GetComponent<MouseMovement>().isSearching = false;
+
+                    }else if(hit.transform.gameObject.CompareTag("CheeseMouse"))
+                    {
+                        BaseCheese cheeseScript = hit.transform.gameObject.GetComponent<BaseCheese>();
+                        cheeseScript.ClearMice();
+                        //cheeseScript.DetachMouse();
+                    }
                 }else
                 {
 
