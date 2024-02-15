@@ -26,7 +26,10 @@ public class BaseCheese : MonoBehaviour
     private void Awake()
     {
         gameManager = GameObject.Find("GameManager").gameObject.GetComponent<GameManager>();
-        gameManager.cheeseList.Add(gameObject);
+        if (transform.parent == null)
+        {
+            gameManager.cheeseList.Add(gameObject);
+        }
         //cheeseRb = gameObject.GetComponent<Rigidbody>();
     }
 
@@ -127,11 +130,14 @@ public class BaseCheese : MonoBehaviour
 
             Destroy(gameObject.GetComponent<NavMeshAgent>());
         }
-        transform.tag = "Cheese";
+        Invoke(nameof(ChangeTagToCheese), 0.2f);
         cheeseRb.isKinematic = false;
     }
 
-
+    private void ChangeTagToCheese()
+    {
+        transform.tag = "Cheese";
+    }
 
 
 

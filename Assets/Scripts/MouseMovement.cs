@@ -61,23 +61,62 @@ public class MouseMovement : MonoBehaviour
             if (isSearching)
             {
                 mouseAgent.SetDestination(target.position);
-                if (target.gameObject.GetComponent<BaseCheese>().isFull && target != null)
+                if (!target.gameObject.CompareTag("Shelf"))
                 {
-                    //isSearching = false;
-                    if(gameManager.cheeseList.Count > 0)
+
+                    if (target.gameObject.GetComponent<BaseCheese>().isFull && target != null)
+                    {
+                        //isSearching = false;
+                        if(gameManager.cheeseList.Count > 0)
+                        {
+
+                            target = gameManager.RandomCheese().transform;
+                        }else
+                        {
+                            isSearching = false;
+                        }
+                    }
+                }else 
+                {
+                    CheeseShelf shelfScript = target.gameObject.GetComponent<CheeseShelf>();
+                    if (target.gameObject.GetComponent<CheeseShelf>().shelfList.Count > 0)
                     {
 
-                        target = gameManager.RandomCheese().transform;
+                        if (gameManager.cheeseList.Count > 0)
+                        {
+                            target = gameManager.RandomCheese().transform;
+                        }else
+                        {
+                            shelfScript.RemoveFromCheeseList();
+                            isSearching = false;
+                        }
                     }else
                     {
                         isSearching = false;
+                        shelfScript.RemoveFromCheeseList();
                     }
                 }
                 if(Vector3.Distance(transform.position, target.position) <= 1f && target != null)
                 {
                     isSearching = false;
                     canMove = false;
-                    PickUpCheese(target.gameObject);
+                    if (target.gameObject.CompareTag("Shelf"))
+                    {
+                        CheeseShelf shelfScript = target.gameObject.GetComponent<CheeseShelf>();
+                        if(shelfScript.shelfList.Count > 0)
+                        {
+                            PickUpCheese(shelfScript.RemoveFromShelf());
+
+                        }else 
+                        {
+                            shelfScript.RemoveFromCheeseList();
+                            canMove = true;
+                        }
+                    }else
+                    {
+                        PickUpCheese(target.gameObject);
+
+                    }
 
                 }
             }else

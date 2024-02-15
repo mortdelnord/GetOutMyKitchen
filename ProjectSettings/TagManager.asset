@@ -7,6 +7,10 @@ TagManager:
   - Mouse
   - Cheese
   - CheeseMouse
+  - Shelf
+  - Cow
+  - Bucket
+  - Milk
   layers:
   - Default
   - TransparentFX
