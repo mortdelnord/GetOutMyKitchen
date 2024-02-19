@@ -340,7 +340,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: WalkCarry
-  m_Speed: 1
+  m_Speed: 1.07
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 5098524483386514122}
@@ -565,7 +565,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Walk
-  m_Speed: 1
+  m_Speed: 1.07
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -8651375070508689245}
