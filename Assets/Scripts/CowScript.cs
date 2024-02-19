@@ -6,19 +6,38 @@ using UnityEngine;
 
 public class CowScript : BaseSpawnPickUp
 {
+    public Animator playerAnimator;
+
+    Transform pickup;
     public override void Interact(Transform playerPickup)
     {
+        pickup = playerPickup;
         if (playerPickup.childCount > 0)
         {
             if (playerPickup.GetChild(0).CompareTag("Bucket"))
             {
-                foreach(Transform child in playerPickup)
-                {
-                    Destroy(child.gameObject);
-                }
-                Instantiate(objectPrefab, playerPickup);
+                playerAnimator.SetTrigger("Interact");
+                Invoke(nameof(Use), 0.9f);
+
+                // foreach(Transform child in playerPickup)
+                // {
+                //     Destroy(child.gameObject);
+                // }
+                // Instantiate(objectPrefab, playerPickup);
             }
 
         }
+    }
+
+
+
+    private void Use()
+    {
+        //cheeseShelf.FillShelf(objectPrefab);
+        foreach (Transform child in pickup)
+        {
+            Destroy(child.gameObject);
+        }
+        Instantiate(objectPrefab, pickup);
     }
 }

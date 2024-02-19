@@ -11,26 +11,38 @@ public class Cauldron : BaseSpawnPickUp
     public float cookTimerMax;
     private int milkAmount;
     private int milkNeeded;
+    Transform pickup;
+
+
+    public Animator playerAnimator;
     public override void Interact(Transform playerPickup)
     {
+        pickup = playerPickup;
         if(playerPickup.childCount > 0)
         {
             if (playerPickup.GetChild(0).CompareTag("Milk") && !isCooking)
             {
-                foreach (Transform child in playerPickup)
-                {
-                    Destroy(child.gameObject);
-                }
-                isCooking = true;
+                playerAnimator.SetTrigger("Interact");
+                Invoke(nameof(Use), 0.9f);
+                // foreach (Transform child in playerPickup)
+                // {
+                //     Destroy(child.gameObject);
+                // }
+                // isCooking = true;
                 //Cooking();
             }
         }else
         {
             if (doneCooking)
             {
-                Instantiate(objectPrefab, playerPickup);
-                doneCooking = false;
+                playerAnimator.SetTrigger("Interact");
+                Invoke(nameof(CookingDone), 0.9f);
             }
+            // if (doneCooking)
+            // {
+            //     Instantiate(objectPrefab, playerPickup);
+            //     doneCooking = false;
+            // }
         }
     }
 
@@ -47,20 +59,35 @@ public class Cauldron : BaseSpawnPickUp
                 doneCooking = true;
             }
         }
-    // }
-    // private void Cooking()
-    // {
-    //     while(isCooking)
-    //     {
-    //         cookTimer += Time.deltaTime;
-    //         if (cookTimer >= cookTimerMax)
-    //         {
-    //             cookTimer = 0f;
-    //             Debug.Log("Done Cooking");
-    //             isCooking = false;
-    //             doneCooking = true;
-    //         }
-    //     }
+
+    }
+
+
+
+
+    private void Use()
+    {
+        
+        foreach (Transform child in pickup)
+        {
+            Destroy(child.gameObject);
+        }
+        isCooking = true;
+
+        
+        // if (doneCooking)
+        // {
+        //     Instantiate(objectPrefab, pickup);
+        //     doneCooking = false;
+        // }
+        
+    }
+    private void CookingDone()
+    {
+        
+        Instantiate(objectPrefab, pickup);
+        doneCooking = false;
+        
     }
 
 

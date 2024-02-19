@@ -559,6 +559,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8765742989856367019, guid: b6f9d351a94ea454eacb6e9682eabe05,
+        type: 3}
+      propertyPath: playerAnimator
+      value: 
+      objectReference: {fileID: 2001094003}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -849,6 +854,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CheeseWedge
+      objectReference: {fileID: 0}
+    - target: {fileID: 1917017245879716336, guid: 56820df0889b18543b4fdd186ce95f56,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2316,6 +2326,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3718119514517576467, guid: 6a6220128fd084cb888bb0fd3a6a8dd0,
+        type: 3}
+      propertyPath: playerAnimator
+      value: 
+      objectReference: {fileID: 2001094003}
     - target: {fileID: 5090255506484520362, guid: 6a6220128fd084cb888bb0fd3a6a8dd0,
         type: 3}
       propertyPath: m_Name
@@ -2379,6 +2394,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CheeseShelf
       objectReference: {fileID: 0}
+    - target: {fileID: 7383039625075193195, guid: 5c9c3e8ccf7814cc7b4cff379f5187f1,
+        type: 3}
+      propertyPath: playerAnimator
+      value: 
+      objectReference: {fileID: 2001094003}
     - target: {fileID: 7922476644080010202, guid: 5c9c3e8ccf7814cc7b4cff379f5187f1,
         type: 3}
       propertyPath: m_LocalScale.y
@@ -3918,7 +3938,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.39
+  m_VoxelSize: 0.19666666
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 79a0864025ba84d59b25005a928e58b5, type: 2}
   m_BuildHeightMesh: 0
@@ -3929,7 +3949,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1682345063}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
   m_Name: 
@@ -4539,11 +4559,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: CheeseWheel
       objectReference: {fileID: 0}
+    - target: {fileID: 5708210333336623809, guid: d5632734b44ed2441adbbe217e7b5238,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5632734b44ed2441adbbe217e7b5238, type: 3}
+--- !u!95 &2001094003 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5285255034904613764, guid: 0b9341f8e66274f4b964737cee92db8f,
+    type: 3}
+  m_PrefabInstance: {fileID: 597165054}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2023778965 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9179504147251587221, guid: 7db66fc3297562d4c8d00193509ad499,
@@ -5122,6 +5153,11 @@ PrefabInstance:
       propertyPath: m_Extents.z
       value: 1.115
       objectReference: {fileID: 0}
+    - target: {fileID: 3742350233537401483, guid: ba22258b33b6b457a90d48380821b4e4,
+        type: 3}
+      propertyPath: playerAnimator
+      value: 
+      objectReference: {fileID: 2001094003}
     - target: {fileID: 7509411576711535822, guid: ba22258b33b6b457a90d48380821b4e4,
         type: 3}
       propertyPath: m_Name

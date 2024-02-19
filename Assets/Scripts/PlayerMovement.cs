@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     [Header ("Bools")]
     
     private bool canMove = true;
-    private bool canInteract = false;
+    private bool canInteract = true;
     private bool canClick = true;
     private Transform target;
     public Transform pickUpPoint;
@@ -81,19 +81,21 @@ public class PlayerMovement : MonoBehaviour
                 {
                     if (hit.transform.gameObject.GetComponent<BaseSpawnPickUp>() != null)
                     {
+                        
                         playerAgent.isStopped = false;
                         target = hit.transform;
                         playerAgent.SetDestination(target.position);
                         Debug.Log(target);
-                        if (Vector3.Distance(transform.position, target.position) <= 2f && target != null)
-                        {
-                            Debug.Log("Is at destination");
-                            playerAgent.isStopped = true;
-                            playerAnimator.SetTrigger("Interact");
-                            Invoke(nameof(Interact), interactTime);
-                            // BaseSpawnPickUp objectScript = hit.transform.gameObject.GetComponent<BaseSpawnPickUp>();
-                            // objectScript.Interact(pickUpPoint);
-                        }
+                        // if (Vector3.Distance(transform.position, target.position) <= 4f && target != null && canInteract)
+                        // {
+                        //     canInteract = false;
+                        //     Debug.Log("Is at destination");
+                        //     playerAgent.isStopped = true;
+                        //     playerAnimator.SetTrigger("Interact");
+                        //     Invoke(nameof(Interact), interactTime);
+                        //     // BaseSpawnPickUp objectScript = hit.transform.gameObject.GetComponent<BaseSpawnPickUp>();
+                        //     // objectScript.Interact(pickUpPoint);
+                        // }
                     }else
                     {
                         playerAgent.isStopped = false;
@@ -110,16 +112,18 @@ public class PlayerMovement : MonoBehaviour
         if (target != null)
         {
 
-            if (Vector3.Distance(transform.position, target.position) <= 2f && target != null && canInteract)
+            if (Vector3.Distance(transform.position, target.position) <= 4f && target != null && canInteract)
             {
-                playerAgent.isStopped = true;
-                // playerAnimator.SetTrigger("Interact");
-                // Invoke(nameof(Interact), interactTime);
-                canInteract = false;
-
-                //Debug.Log("Is at destination");
-                // BaseSpawnPickUp objectScript = target.transform.gameObject.GetComponent<BaseSpawnPickUp>();
-                // objectScript.Interact(pickUpPoint);
+                if (target.gameObject.GetComponent<BaseSpawnPickUp>() != null)
+                    {
+                        canInteract = false;
+                        Debug.Log("Is at destination");
+                        playerAgent.isStopped = true;
+                        // playerAnimator.SetTrigger("Interact");
+                        // Invoke(nameof(Interact), interactTime);
+                        BaseSpawnPickUp objectScript = target.transform.gameObject.GetComponent<BaseSpawnPickUp>();
+                        objectScript.Interact(pickUpPoint);
+                    }
             }
         }
     }
@@ -129,6 +133,7 @@ public class PlayerMovement : MonoBehaviour
         //Debug.Log("Is at destination");
         BaseSpawnPickUp objectScript = target.transform.gameObject.GetComponent<BaseSpawnPickUp>();
         objectScript.Interact(pickUpPoint);
+        
     }
 
     private void ClearHands()

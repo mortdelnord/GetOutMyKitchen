@@ -6,6 +6,8 @@ public class CheeseShelf : MonoBehaviour
 {
     private GameManager gameManager;
     public List<GameObject> shelfList;
+    public List<Transform> shelfVisualPoints;
+    public GameObject cheeseVisual;
     public Transform dropPoint;
     public int shelfMax;
 
@@ -38,7 +40,15 @@ public class CheeseShelf : MonoBehaviour
     {
         if (shelfList.Count < shelfMax)
         {
+            
             shelfList.Add(cheese);
+            int cheeseInt = shelfList.Count - 1;
+            Debug.Log(cheeseInt);
+            if (cheeseInt <= shelfVisualPoints.Count - 1)
+            {
+                Transform shelfPoint = shelfVisualPoints[cheeseInt];
+                Instantiate(cheeseVisual, shelfPoint.position, RandomCheesRotation(), shelfPoint);
+            }
 
         }else if (shelfList.Count >= shelfMax)
         {
@@ -68,5 +78,13 @@ public class CheeseShelf : MonoBehaviour
         // {
         //     cheese.AttachMouse(mouse.transform);
         // }
+    }
+
+
+    private Quaternion RandomCheesRotation()
+    {
+        float yangle = Random.Range(-270, 270);
+        Quaternion newAngle = Quaternion.Euler(0f, yangle, 0f);
+        return newAngle;
     }
 }
