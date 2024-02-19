@@ -7,6 +7,7 @@ using UnityEngine;
 public class CowScript : BaseSpawnPickUp
 {
     public Animator playerAnimator;
+    public ParticleSystem milkParticles;
 
     Transform pickup;
     public override void Interact(Transform playerPickup)
@@ -33,6 +34,7 @@ public class CowScript : BaseSpawnPickUp
 
     private void Use()
     {
+        milkParticles.Play();
         //cheeseShelf.FillShelf(objectPrefab);
         foreach (Transform child in pickup)
         {

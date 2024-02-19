@@ -63,6 +63,17 @@ public class CheeseShelf : MonoBehaviour
         {
             int removedInt = shelfList.Count - 1;
             GameObject removedCheese = shelfList[removedInt];
+            if (shelfList.Count - 1 <= shelfVisualPoints.Count - 1)
+            {
+                Transform removedVisual = shelfVisualPoints[removedInt];
+                if (removedVisual.childCount > 0)
+                {  
+                    foreach( Transform child in removedVisual)
+                    {
+                        Destroy(child.gameObject);
+                    }
+                }
+            }
             shelfList.Remove(removedCheese);
             removedCheese = Instantiate(removedCheese, dropPoint.position, dropPoint.rotation);
             removedCheese.GetComponent<Rigidbody>().isKinematic = false;

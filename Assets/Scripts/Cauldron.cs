@@ -12,6 +12,9 @@ public class Cauldron : BaseSpawnPickUp
     private int milkAmount;
     private int milkNeeded;
     Transform pickup;
+    public ParticleSystem cookingParticles;
+    public ParticleSystem sparkles;
+    public ParticleSystem smoke;
 
 
     public Animator playerAnimator;
@@ -53,6 +56,9 @@ public class Cauldron : BaseSpawnPickUp
             cookTimer += Time.deltaTime;
             if (cookTimer >= cookTimerMax)
             {
+                cookingParticles.Stop();
+                sparkles.Play();
+                smoke.Play();
                 cookTimer = 0f;
                 Debug.Log("Done Cooking");
                 isCooking = false;
@@ -73,6 +79,7 @@ public class Cauldron : BaseSpawnPickUp
             Destroy(child.gameObject);
         }
         isCooking = true;
+        cookingParticles.Play();
 
         
         // if (doneCooking)
