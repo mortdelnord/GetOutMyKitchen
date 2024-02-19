@@ -19,6 +19,9 @@ public class PlayerMovement : MonoBehaviour
     private bool canClick = true;
     private Transform target;
     public Transform pickUpPoint;
+    public Animator playerAnimator;
+    public float interactTime;
+    
 
 
     private GameObject currentCarriedObject;
@@ -31,6 +34,27 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        //Debug.Log(playerAgent.velocity.magnitude);
+        if (playerAgent.velocity.magnitude > 0.1f)
+        {
+            //Debug.Log("ismoving");
+            playerAnimator.SetBool("IsWalking", true);
+            
+        }else
+        {
+            //Debug.Log("isstopped");
+            playerAnimator.SetBool("IsWalking", false);
+        }
+        if (pickUpPoint.childCount > 0)
+        {
+            playerAnimator.SetBool("IsCarrying", true);
+
+        }else
+        {
+            playerAnimator.SetBool("IsCarrying", false);
+        }
+
+
         if( Input.GetMouseButton(0) && canClick)
         {
             canInteract = true;
@@ -57,17 +81,22 @@ public class PlayerMovement : MonoBehaviour
                 {
                     if (hit.transform.gameObject.GetComponent<BaseSpawnPickUp>() != null)
                     {
+                        playerAgent.isStopped = false;
                         target = hit.transform;
                         playerAgent.SetDestination(target.position);
                         Debug.Log(target);
-                        if (Vector3.Distance(transform.position, target.position) <= 5f && target != null)
+                        if (Vector3.Distance(transform.position, target.position) <= 2f && target != null)
                         {
                             Debug.Log("Is at destination");
-                            BaseSpawnPickUp objectScript = hit.transform.gameObject.GetComponent<BaseSpawnPickUp>();
-                            objectScript.Interact(pickUpPoint);
+                            playerAgent.isStopped = true;
+                            playerAnimator.SetTrigger("Interact");
+                            Invoke(nameof(Interact), interactTime);
+                            // BaseSpawnPickUp objectScript = hit.transform.gameObject.GetComponent<BaseSpawnPickUp>();
+                            // objectScript.Interact(pickUpPoint);
                         }
                     }else
                     {
+                        playerAgent.isStopped = false;
                         target = null;
                         playerAgent.SetDestination(hit.point);
                     }
@@ -83,14 +112,24 @@ public class PlayerMovement : MonoBehaviour
 
             if (Vector3.Distance(transform.position, target.position) <= 2f && target != null && canInteract)
             {
+                playerAgent.isStopped = true;
+                // playerAnimator.SetTrigger("Interact");
+                // Invoke(nameof(Interact), interactTime);
                 canInteract = false;
+
                 //Debug.Log("Is at destination");
-                BaseSpawnPickUp objectScript = target.transform.gameObject.GetComponent<BaseSpawnPickUp>();
-                objectScript.Interact(pickUpPoint);
+                // BaseSpawnPickUp objectScript = target.transform.gameObject.GetComponent<BaseSpawnPickUp>();
+                // objectScript.Interact(pickUpPoint);
             }
         }
     }
-
+    private void Interact()
+    {
+        
+        //Debug.Log("Is at destination");
+        BaseSpawnPickUp objectScript = target.transform.gameObject.GetComponent<BaseSpawnPickUp>();
+        objectScript.Interact(pickUpPoint);
+    }
 
     private void ClearHands()
     {
