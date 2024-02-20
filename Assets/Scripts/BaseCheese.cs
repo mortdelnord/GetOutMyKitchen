@@ -94,6 +94,7 @@ public class BaseCheese : MonoBehaviour
         Transform mousePoint = carryPoints[mouseInt];
         mouseBody.parent = mousePoint;
         mouseBody.localPosition = Vector3.zero;
+        mouseBody.rotation = transform.rotation;
         if (mice.Count == miceCountMax)
         {
             gameManager.cheeseList.Remove(gameObject);

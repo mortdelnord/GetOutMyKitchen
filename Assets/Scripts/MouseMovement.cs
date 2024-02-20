@@ -96,7 +96,7 @@ public class MouseMovement : MonoBehaviour
                         shelfScript.RemoveFromCheeseList();
                     }
                 }
-                if(Vector3.Distance(transform.position, target.position) <= 1f && target != null)
+                if(Vector3.Distance(transform.position, target.position) <= 4f && target != null)
                 {
                     isSearching = false;
                     canMove = false;
@@ -105,6 +105,7 @@ public class MouseMovement : MonoBehaviour
                         CheeseShelf shelfScript = target.gameObject.GetComponent<CheeseShelf>();
                         if(shelfScript.shelfList.Count > 0)
                         {
+                            Debug.Log("getting cheese");
                             PickUpCheese(shelfScript.RemoveFromShelf());
 
                         }else 

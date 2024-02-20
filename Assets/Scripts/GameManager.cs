@@ -61,7 +61,9 @@ public class GameManager : MonoBehaviour
                 {
 
                     spawnTimer = 0f;
+
                     Transform spawnPoint = RandomMouseHole();
+                    //Vector3 spawnPos = new Vector3(spawnPoint.position.x, 0f, spawnPoint.position.z);
                     Instantiate(mousePrefab, spawnPoint.position, spawnPoint.rotation);
                 }
             }

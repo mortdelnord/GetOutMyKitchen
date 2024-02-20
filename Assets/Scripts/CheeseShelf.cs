@@ -76,6 +76,7 @@ public class CheeseShelf : MonoBehaviour
             }
             shelfList.Remove(removedCheese);
             removedCheese = Instantiate(removedCheese, dropPoint.position, dropPoint.rotation);
+            Debug.Log("cheese removed and spawned");
             removedCheese.GetComponent<Rigidbody>().isKinematic = false;
             return removedCheese;
 
