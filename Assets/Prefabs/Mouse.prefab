@@ -52,7 +52,7 @@ NavMeshAgent:
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 0.2
   m_BaseOffset: 0
@@ -76,6 +76,7 @@ MonoBehaviour:
   timerMax: 5
   canMove: 1
   isCarrying: 0
+  minDistance: 3
   isSearching: 1
   target: {fileID: 0}
   home: {fileID: 0}

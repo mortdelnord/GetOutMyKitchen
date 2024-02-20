@@ -12,6 +12,7 @@ public class MouseMovement : MonoBehaviour
     private float timer = 0f;
     public bool canMove = true;
     public bool isCarrying = false;
+    public float minDistance;
 
     public bool isSearching = true;
     public Transform target = null;
@@ -96,7 +97,7 @@ public class MouseMovement : MonoBehaviour
                         shelfScript.RemoveFromCheeseList();
                     }
                 }
-                if(Vector3.Distance(transform.position, target.position) <= 4f && target != null)
+                if(Vector3.Distance(transform.position, target.position) <= minDistance && target != null)
                 {
                     isSearching = false;
                     canMove = false;

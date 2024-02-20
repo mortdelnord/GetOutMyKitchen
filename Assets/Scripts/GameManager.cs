@@ -108,10 +108,10 @@ public class GameManager : MonoBehaviour
                     {
                         if (previousScore < score)
                         {
-                            spawnTimerMax -= 0.2f;
+                            spawnTimerMax -= 1f;
                         }else
                         {
-                            spawnTimerMax += 0.2f;
+                            spawnTimerMax += 1f;
                         }
                     }
                 }
