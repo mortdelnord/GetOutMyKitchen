@@ -7,6 +7,8 @@ using UnityEngine.AI;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public LayerMask ignoreRayCast;
+    public GameObject clickParticles;
     private NavMeshAgent playerAgent;
 
     [Header ("Camera")]
@@ -57,11 +59,13 @@ public class PlayerMovement : MonoBehaviour
 
         if( Input.GetMouseButton(0) && canClick)
         {
+            
             canInteract = true;
             Ray clickRay = mainCam.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(clickRay, out RaycastHit hit, 1000, playerAgent.areaMask))
+            if (Physics.Raycast(clickRay, out RaycastHit hit, 1000, ~ignoreRayCast))
             {
+                Instantiate(clickParticles, hit.point, clickParticles.transform.rotation);
                 if (hit.transform.gameObject.CompareTag("Mouse") || hit.transform.gameObject.CompareTag("CheeseMouse"))
                 {
                     //canClick = false;
