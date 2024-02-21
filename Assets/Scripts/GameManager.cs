@@ -111,7 +111,11 @@ public class GameManager : MonoBehaviour
                             spawnTimerMax -= 1f;
                         }else
                         {
-                            spawnTimerMax += 1f;
+                            if (spawnTimerMax < intialTime)
+                            {
+
+                                spawnTimerMax += 1f;
+                            }
                         }
                     }
                 }

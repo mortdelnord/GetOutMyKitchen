@@ -76,7 +76,7 @@ MonoBehaviour:
   timerMax: 5
   canMove: 1
   isCarrying: 0
-  minDistance: 3
+  minDistance: 4
   isSearching: 1
   target: {fileID: 0}
   home: {fileID: 0}

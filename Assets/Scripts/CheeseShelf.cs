@@ -43,7 +43,7 @@ public class CheeseShelf : MonoBehaviour
             
             shelfList.Add(cheese);
             int cheeseInt = shelfList.Count - 1;
-            Debug.Log(cheeseInt);
+            //Debug.Log(cheeseInt);
             if (cheeseInt <= shelfVisualPoints.Count - 1)
             {
                 Transform shelfPoint = shelfVisualPoints[cheeseInt];
@@ -76,7 +76,7 @@ public class CheeseShelf : MonoBehaviour
             }
             shelfList.Remove(removedCheese);
             removedCheese = Instantiate(removedCheese, dropPoint.position, dropPoint.rotation);
-            Debug.Log("cheese removed and spawned");
+            //Debug.Log("cheese removed and spawned");
             removedCheese.GetComponent<Rigidbody>().isKinematic = false;
             return removedCheese;
 
