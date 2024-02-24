@@ -60,7 +60,7 @@ public class Cauldron : BaseSpawnPickUp
                 sparkles.Play();
                 smoke.Play();
                 cookTimer = 0f;
-                Debug.Log("Done Cooking");
+                //Debug.Log("Done Cooking");
                 isCooking = false;
                 doneCooking = true;
             }

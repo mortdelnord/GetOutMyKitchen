@@ -4,11 +4,15 @@ using Unity.VisualScripting;
 using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public InputActionAsset playerInputs;
+    private InputAction clickInput;
     public LayerMask ignoreRayCast;
     public GameObject clickParticles;
+    public GameObject mouseClickParticles;
     private NavMeshAgent playerAgent;
 
     [Header ("Camera")]
@@ -16,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header ("Bools")]
     
-    private bool canMove = true;
+    //private bool canMove = true;
     private bool canInteract = true;
     private bool canClick = true;
     private Transform target;
@@ -30,6 +34,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        playerInputs.FindActionMap("Player").Enable();
+        clickInput = playerInputs.FindActionMap("Player").FindAction("Click");
         playerAgent = gameObject.GetComponent<NavMeshAgent>();
         mainCam = Camera.main;
     }
@@ -57,21 +63,23 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        if( Input.GetMouseButton(0) && canClick)
+        if( clickInput.WasPressedThisFrame() && canClick)
         {
-            
+            //canClick = false;
             canInteract = true;
             Ray clickRay = mainCam.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(clickRay, out RaycastHit hit, 1000, ~ignoreRayCast))
             {
-                Instantiate(clickParticles, hit.point, clickParticles.transform.rotation);
+                //Instantiate(clickParticles, hit.point, clickParticles.transform.rotation);
                 if (hit.transform.gameObject.CompareTag("Mouse") || hit.transform.gameObject.CompareTag("CheeseMouse"))
                 {
+                    Instantiate(mouseClickParticles, hit.point, clickParticles.transform.rotation);
                     //canClick = false;
                     if (hit.transform.gameObject.CompareTag("Mouse"))
                     {
                         hit.transform.gameObject.GetComponent<MouseMovement>().isSearching = false;
+                        hit.transform.gameObject.GetComponent<MouseMovement>().mouseAnimator.SetTrigger("isHit");
                         //canClick = true;
 
                     }else if(hit.transform.gameObject.CompareTag("CheeseMouse"))
@@ -85,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     if (hit.transform.gameObject.GetComponent<BaseSpawnPickUp>() != null)
                     {
-                        
+                        Instantiate(clickParticles, hit.point, clickParticles.transform.rotation);
                         playerAgent.isStopped = false;
                         target = hit.transform;
                         playerAgent.SetDestination(target.position);
@@ -112,6 +120,8 @@ public class PlayerMovement : MonoBehaviour
                 }
 
             }
+            //Invoke(nameof(ResetClick), 0.2f);
+            //canClick = true;
         }
         if (target != null)
         {
@@ -132,24 +142,29 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-    private void Interact()
-    {
-        
-        //Debug.Log("Is at destination");
-        BaseSpawnPickUp objectScript = target.transform.gameObject.GetComponent<BaseSpawnPickUp>();
-        objectScript.Interact(pickUpPoint);
-        
-    }
 
-    private void ClearHands()
+    private void ResetClick()
     {
-        if (pickUpPoint.childCount > 0)
-        {
-            foreach(Transform child in pickUpPoint)
-            {
-                Destroy(child.gameObject);
-            }
-        }
+        canClick = true;
     }
+    // private void Interact()
+    // {
+        
+    //     //Debug.Log("Is at destination");
+    //     BaseSpawnPickUp objectScript = target.transform.gameObject.GetComponent<BaseSpawnPickUp>();
+    //     objectScript.Interact(pickUpPoint);
+        
+    // }
+
+    // private void ClearHands()
+    // {
+    //     if (pickUpPoint.childCount > 0)
+    //     {
+    //         foreach(Transform child in pickUpPoint)
+    //         {
+    //             Destroy(child.gameObject);
+    //         }
+    //     }
+    // }
 
 }

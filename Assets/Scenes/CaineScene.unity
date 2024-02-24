@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1802,9 +1802,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6992904314209142964, guid: 0b9341f8e66274f4b964737cee92db8f,
         type: 3}
+      propertyPath: playerInputs
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: 6b01727f1b60a48c1a6a0c9eeb251d96,
+        type: 3}
+    - target: {fileID: 6992904314209142964, guid: 0b9341f8e66274f4b964737cee92db8f,
+        type: 3}
       propertyPath: clickParticles
       value: 
       objectReference: {fileID: 4671973371693517673, guid: 461e4a50120b1498dad9b509e2813fd5,
+        type: 3}
+    - target: {fileID: 6992904314209142964, guid: 0b9341f8e66274f4b964737cee92db8f,
+        type: 3}
+      propertyPath: mouseClickParticles
+      value: 
+      objectReference: {fileID: 8521979149639841468, guid: 20023bb003e5341ba9c7c2b34a1ec753,
         type: 3}
     - target: {fileID: 6992904314209142964, guid: 0b9341f8e66274f4b964737cee92db8f,
         type: 3}

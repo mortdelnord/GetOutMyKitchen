@@ -40,7 +40,7 @@ public class BaseCheese : MonoBehaviour
         {
             if (Vector3.Distance(transform.position, home.position) <= 1f)
             {
-                Debug.Log("Is Destroying");
+                //Debug.Log("Is Destroying");
                 Destroy(gameObject);
                 //PickUpCheese(target.gameObject);
             }
@@ -116,6 +116,7 @@ public class BaseCheese : MonoBehaviour
                 Transform mouseTransform = point.GetChild(0);
                 mouseTransform.parent = null;
                 MouseMovement mouseScript = mouseTransform.gameObject.GetComponent<MouseMovement>();
+                mouseScript.mouseAnimator.SetTrigger("isHit");
                 mouseScript.mouseAgent.enabled = true;
                 mouseScript.canMove = true;
                 mouseScript.isSearching = false;

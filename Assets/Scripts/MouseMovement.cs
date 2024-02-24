@@ -7,6 +7,7 @@ public class MouseMovement : MonoBehaviour
 {
     public GameManager gameManager;
     public NavMeshAgent mouseAgent;
+    public Animator mouseAnimator;
     public float range = 10.0f;
     public float timerMax = 5.0f;
     private float timer = 0f;
@@ -106,7 +107,7 @@ public class MouseMovement : MonoBehaviour
                         CheeseShelf shelfScript = target.gameObject.GetComponent<CheeseShelf>();
                         if(shelfScript.shelfList.Count > 0)
                         {
-                            Debug.Log("getting cheese");
+                            //Debug.Log("getting cheese");
                             PickUpCheese(shelfScript.RemoveFromShelf());
 
                         }else 
