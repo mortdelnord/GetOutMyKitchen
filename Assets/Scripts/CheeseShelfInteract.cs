@@ -7,6 +7,7 @@ public class CheeseShelfInteract : BaseSpawnPickUp
 {
     private CheeseShelf cheeseShelf;
     public Animator playerAnimator;
+    public AudioSource popSound;
 
     Transform pickup;
     private void Start()
@@ -34,6 +35,7 @@ public class CheeseShelfInteract : BaseSpawnPickUp
 
     private void Use()
     {
+        popSound.Play();
         cheeseShelf.FillShelf(objectPrefab);
         foreach (Transform child in pickup)
         {

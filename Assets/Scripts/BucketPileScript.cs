@@ -7,6 +7,7 @@ public class BucketPileScript : BaseSpawnPickUp
 
     public Animator playerAnimator;
     Transform pickup;
+    public AudioSource interactSound;
     public override void Interact(Transform playerPickup)
     {
         pickup = playerPickup;
@@ -16,6 +17,7 @@ public class BucketPileScript : BaseSpawnPickUp
         }else
         {
             playerAnimator.SetTrigger("Interact");
+            interactSound.Play();
             Invoke(nameof(Use), 0.9f);
             //Instantiate(objectPrefab, playerPickup);
         }

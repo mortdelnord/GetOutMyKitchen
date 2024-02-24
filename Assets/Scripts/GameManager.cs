@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public float spawnTimerMax;
     public float intialTime;
     public TextMeshProUGUI scoreText;
+    public AudioSource popSound;
 
     private void Start()
     {
@@ -87,6 +88,7 @@ public class GameManager : MonoBehaviour
 
                     Transform spawnPoint = RandomMouseHole();
                     //Vector3 spawnPos = new Vector3(spawnPoint.position.x, 0f, spawnPoint.position.z);
+                    popSound.Play();
                     Instantiate(mousePrefab, spawnPoint.position, spawnPoint.rotation);
                 }
             }

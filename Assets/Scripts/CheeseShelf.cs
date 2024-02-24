@@ -10,6 +10,7 @@ public class CheeseShelf : MonoBehaviour
     public GameObject cheeseVisual;
     public Transform dropPoint;
     public int shelfMax;
+    public AudioSource popSound;
 
 
     private void Start()
@@ -38,6 +39,7 @@ public class CheeseShelf : MonoBehaviour
     }
     public void FillShelf(GameObject cheese)
     {
+        popSound.Play();
         if (shelfList.Count < shelfMax)
         {
             
@@ -59,6 +61,7 @@ public class CheeseShelf : MonoBehaviour
     }
     public GameObject RemoveFromShelf()
     {
+        popSound.Play();
         if (shelfList.Count > 0)
         {
             int removedInt = shelfList.Count - 1;
