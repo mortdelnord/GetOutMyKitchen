@@ -15,6 +15,7 @@ public class Cauldron : BaseSpawnPickUp
     public ParticleSystem cookingParticles;
     public ParticleSystem sparkles;
     public ParticleSystem smoke;
+    public ParticleSystem loopSparkles;
     public AudioSource bubbleSound;
     public AudioSource finishedSound;
     public AudioSource popSound;
@@ -66,6 +67,7 @@ public class Cauldron : BaseSpawnPickUp
                 cookingParticles.Stop();
                 sparkles.Play();
                 smoke.Play();
+                loopSparkles.Play();
                 cookTimer = 0f;
                 //Debug.Log("Done Cooking");
                 isCooking = false;
@@ -99,6 +101,7 @@ public class Cauldron : BaseSpawnPickUp
     }
     private void CookingDone()
     {
+        loopSparkles.Stop();
         finishedSound.Stop();
         popSound.Play();
         Instantiate(objectPrefab, pickup);
