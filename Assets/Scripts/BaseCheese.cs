@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -126,6 +124,7 @@ public class BaseCheese : MonoBehaviour
         if (!gameManager.cheeseList.Contains(gameObject))
         {
             gameManager.cheeseList.Add(gameObject);
+            gameManager.UpdateScore();
         }
         if (gameObject.GetComponent<NavMeshAgent>() != null)
         {
