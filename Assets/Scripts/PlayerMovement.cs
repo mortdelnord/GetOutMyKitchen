@@ -63,29 +63,28 @@ public class PlayerMovement : MonoBehaviour
 
         if( clickInput.WasPressedThisFrame() && canClick)
         {
-            //canClick = false;
+            
             canInteract = true;
             Ray clickRay = mainCam.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(clickRay, out RaycastHit hit, 1000, ~ignoreRayCast))
             {
-                //Instantiate(clickParticles, hit.point, clickParticles.transform.rotation);
+                
                 if (hit.transform.gameObject.CompareTag("Mouse") || hit.transform.gameObject.CompareTag("CheeseMouse"))
                 {
                     Instantiate(mouseClickParticles, hit.point, clickParticles.transform.rotation);
-                    //canClick = false;
+                    
                     if (hit.transform.gameObject.CompareTag("Mouse"))
                     {
                         hit.transform.gameObject.GetComponent<MouseMovement>().isSearching = false;
                         hit.transform.gameObject.GetComponent<MouseMovement>().mouseAnimator.SetTrigger("isHit");
-                        //canClick = true;
+                        
 
                     }else if(hit.transform.gameObject.CompareTag("CheeseMouse"))
                     {
                         BaseCheese cheeseScript = hit.transform.gameObject.GetComponent<BaseCheese>();
                         cheeseScript.ClearMice();
-                        //canClick = true;
-                        //cheeseScript.DetachMouse();
+                        
                     }
                 }else
                 {
@@ -95,31 +94,19 @@ public class PlayerMovement : MonoBehaviour
                         playerAgent.isStopped = false;
                         target = hit.transform;
                         playerAgent.SetDestination(target.position);
-                        // Debug.Log(target);
-                        // if (Vector3.Distance(transform.position, target.position) <= 4f && target != null && canInteract)
-                        // {
-                        //     canInteract = false;
-                        //     Debug.Log("Is at destination");
-                        //     playerAgent.isStopped = true;
-                        //     playerAnimator.SetTrigger("Interact");
-                        //     Invoke(nameof(Interact), interactTime);
-                        //     // BaseSpawnPickUp objectScript = hit.transform.gameObject.GetComponent<BaseSpawnPickUp>();
-                        //     // objectScript.Interact(pickUpPoint);
-                        // }
+                        
                     }else
                     {
                         playerAgent.isStopped = false;
                         target = null;
                         playerAgent.SetDestination(hit.point);
                     }
-                    //canClick = true;
-                    //playerAgent.SetDestination(hit.point);
+                    
                     
                 }
 
             }
-            //Invoke(nameof(ResetClick), 0.2f);
-            //canClick = true;
+            
         }
         if (target != null)
         {
@@ -129,10 +116,7 @@ public class PlayerMovement : MonoBehaviour
                 if (target.gameObject.GetComponent<BaseSpawnPickUp>() != null)
                     {
                         canInteract = false;
-                        //Debug.Log("Is at destination");
-                        playerAgent.isStopped = true;
-                        // playerAnimator.SetTrigger("Interact");
-                        // Invoke(nameof(Interact), interactTime);
+                        playerAgent.isStopped = true; 
                         BaseSpawnPickUp objectScript = target.transform.gameObject.GetComponent<BaseSpawnPickUp>();
                         objectScript.Interact(pickUpPoint);
                         target = null;
@@ -141,28 +125,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void ResetClick()
-    {
-        canClick = true;
-    }
-    // private void Interact()
-    // {
-        
-    //     //Debug.Log("Is at destination");
-    //     BaseSpawnPickUp objectScript = target.transform.gameObject.GetComponent<BaseSpawnPickUp>();
-    //     objectScript.Interact(pickUpPoint);
-        
-    // }
-
-    // private void ClearHands()
-    // {
-    //     if (pickUpPoint.childCount > 0)
-    //     {
-    //         foreach(Transform child in pickUpPoint)
-    //         {
-    //             Destroy(child.gameObject);
-    //         }
-    //     }
-    // }
+   
 
 }
